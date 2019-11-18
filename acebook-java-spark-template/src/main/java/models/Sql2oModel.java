@@ -37,7 +37,5 @@ public class Sql2oModel implements Model {
                     .executeAndFetch(Post.class);
             return acebookItems;
         }
-        //TODO - implement this
     }
-
 }
