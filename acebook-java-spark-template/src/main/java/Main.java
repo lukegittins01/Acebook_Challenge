@@ -36,7 +36,12 @@ public class Main {
         get("/posts", (req, res) -> {
 
 
+            if(model.getAllPosts().size() == 0) {
+                UUID id = model.createPost("hello", "world");
+            }
+
             HashMap posts = new HashMap();
+            posts.put("posts", model.getAllPosts());
 
 
             return new ModelAndView(posts, "templates/posts.vtl");
