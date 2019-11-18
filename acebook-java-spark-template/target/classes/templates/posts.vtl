@@ -6,6 +6,11 @@
   </head>
   <body>
     <h1>Welcome to acebook</h1>
-
+    <ul>
+        #foreach ( $i in $posts )
+            <strong>$i.title</strong>
+            <li>$i.content</li>
+        #end
+    </ul>
   </body>
 </html>
