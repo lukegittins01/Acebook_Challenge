@@ -11,4 +11,10 @@ public class Post {
     private String title;
     private String content;
 
+    public Post(UUID post_id, String title, String content) {
+        this.post_id = post_id;
+        this.title = title;
+        this.content = content;
+    }
+
 }

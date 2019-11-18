@@ -18,7 +18,7 @@ public class MainTest {
     }
 
     @ClassRule
-    public static SparkServer<WebAppTestSparkApp> testServer = new SparkServer<>(WebAppTestSparkApp.class, 4567);
+    public static SparkServer<WebAppTestSparkApp> testServer = new SparkServer<>(WebAppTestSparkApp.class, 8080);
 
     @Test
     public void serverRespondsSuccessfully() throws HttpClientException {
