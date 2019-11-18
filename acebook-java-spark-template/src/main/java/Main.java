@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class Main {
 
@@ -42,9 +43,20 @@ public class Main {
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
-
-
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
+
+        get("/create", (req, res) -> {
+            HashMap create = new HashMap();
+            return new ModelAndView(create, "templates/create.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/create", (req, res) -> {
+            String title = req.queryParams("title");
+            String content = req.queryParams("content");
+            UUID id = model.createPost(title, content);
+            res.redirect("/posts");
+            return ":)";
+        });
     }
 }
