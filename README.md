@@ -1,6 +1,6 @@
 # Acebook_Challenge
 
-Scrum Master
+Scum Master
 ------------
 
 Day 1 - Luke
