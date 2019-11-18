@@ -10,7 +10,10 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.converters.UUIDConverter;
 import org.sql2o.quirks.PostgresQuirks;
+import org.w3c.dom.ls.LSOutput;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,9 +59,26 @@ class Sql2oModelTest {
 
     @Test
     void createPost() {
+        Connection conn = sql2o.beginTransaction();
+        conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+                .addParameter("post_id", id)
+                .addParameter("title", "example title")
+                .addParameter("content", "example content")
+                .executeUpdate();
+
+        conn.commit();
+        Model model = new Sql2oModel(sql2o);
+        List<Post> acebookItems =  new ArrayList<Post>();
+        acebookItems.add(new Post(id, "example title", "example content"));
+        acebookItems.add(new Post(id, "example title", "example content"));
+        assertEquals(model.getAllPosts(), acebookItems);
     }
 
     @Test
     void getAllPosts() {
+        Model model = new Sql2oModel(sql2o);
+        List<Post> acebookItems =  new ArrayList<Post>();
+        acebookItems.add(new Post(id, "example title", "example content"));
+        assertEquals(model.getAllPosts(), acebookItems);
     }
 }
