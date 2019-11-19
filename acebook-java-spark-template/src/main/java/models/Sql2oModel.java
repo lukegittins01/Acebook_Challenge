@@ -3,7 +3,6 @@ package models;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,15 +43,11 @@ public class Sql2oModel implements Model {
     public boolean UsernameExist(String example_username) {
         boolean does_username_exists = false;
         try (Connection conn = sql2o.open()) {
-            List<Users> user = conn.createQuery("select username from users")
+            List<Users> user1 = conn.createQuery("select username from users")
                     .executeAndFetch(Users.class);
-            System.out.println(user);
-            System.out.println(example_username);
-            List username = Collections.singletonList("Users(username=" + example_username + ", full_name=null, password=null)");
-            user.toString();
-            System.out.println(user.toString());
-            if(user.contains("Users(username=" + example_username + ", full_name=null, password=null)")){
-                System.out.println("does_username_exists");
+            String user = user1.toString();
+            if(user.contains(example_username)){
+
                 does_username_exists = true;
             }
         }
@@ -62,17 +57,19 @@ public class Sql2oModel implements Model {
 
 
 
-
-    public UUID getUserId(String username, String password) {
+    @Override
+    public List<Users> getUserId(String username, String password) {
+        List<Users> user;
         try (Connection conn = sql2o.open()) {
-            List<Users> user = conn.createQuery("select user_id from users where username=:username and password=:password")
+            user = conn.createQuery("select user_id from users where username=:username and password=:password")
                     .addParameter("username", username)
                     .addParameter("password", password)
                     .executeAndFetch(Users.class);
 
 
         }
-        return Users.return_user_id();
+
+        return user;
     }
 
 //    public boolean CorrectPassword(String user_id) {

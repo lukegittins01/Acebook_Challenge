@@ -100,7 +100,26 @@ class Sql2oModelTest {
                 .executeUpdate();
         conn.commit();
         Model model = new Sql2oModel(sql2o);
-//        System.out.println(model.UsernameExist("example username"));
         assertEquals(true, model.UsernameExist("example username"));
+    }
+    @Test
+    void getUserId(){
+        Connection conn = sql2o.beginTransaction();
+        conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+                .addParameter("post_id", id)
+                .addParameter("title", "example title")
+                .addParameter("content", "example content")
+                .executeUpdate();
+
+        conn.commit();
+        Model model = new Sql2oModel(sql2o);
+
+        List<Users> user = conn.createQuery("select user_id from users where username=:username and password=:password")
+                    .addParameter("username", "example username")
+                    .addParameter("password", "example password")
+                    .executeAndFetch(Users.class);
+
+        assertEquals(user, model.getUserId("example username", "example password"));
+
     }
 }

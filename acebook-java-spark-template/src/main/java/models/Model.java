@@ -1,7 +1,6 @@
 package models;
 
 
-import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +11,8 @@ public interface Model {
 
 
     boolean UsernameExist(String example_username);
+
+    List<Users> getUserId(String example_username, String example_password);
 }
 
 
