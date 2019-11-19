@@ -1,5 +1,6 @@
 import models.Model;
 import models.Sql2oModel;
+import models.Users;
 import org.apache.log4j.BasicConfigurator;
 import org.flywaydb.core.Flyway;
 import org.sql2o.Sql2o;
@@ -8,6 +9,7 @@ import org.sql2o.quirks.PostgresQuirks;
 import spark.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import static spark.Spark.get;
@@ -87,6 +89,23 @@ public class Main {
             HashMap signin = new HashMap();
             return new ModelAndView(signin, "templates/signin.vtl");
         }, new VelocityTemplateEngine());
+
+        post("/signedin", (req, res) -> {
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+            List<Users> userID = model.getUserId(username, password);
+            String userIDtoString = userID.toString();
+//            System.out.println("11111111");
+//            System.out.println(userIDtoString.split(""));
+//            System.out.println("2222222222");
+//            System.out.println(userID);
+            if(model.UsernameExist(username)) {
+                if(model.CorrectPassword(userIDtoString, password)){
+                    System.out.println("You got here!");
+                }
+            }
+            return null;
+        });
 
     }
 }

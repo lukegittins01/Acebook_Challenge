@@ -77,7 +77,7 @@ public class Sql2oModel implements Model {
             List<Users> user = conn.createQuery("select password from users where user_id=:user_id")
                     .addParameter("user_id", user_id)
                     .executeAndFetch(Users.class);
-            password = "[Users(user_id=null, username=null, full_name=null, password=" + password + ")]";
+//            password = "[Users(user_id=null, username=null, full_name=null, password=" + password + ")]";
             if(user.toString().equals(password)){
                 correct_password = true;
             }

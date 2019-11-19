@@ -1,5 +1,5 @@
 create table users(
- user_id VARCHAR PRIMARY KEY,
+ user_id VARCHAR,
  username VARCHAR,
  full_name VARCHAR,
  password VARCHAR
