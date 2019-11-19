@@ -93,19 +93,24 @@ public class Main {
         post("/signedin", (req, res) -> {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
-//            List<Users> userID = model.getUserId(username, password);
-//            String userIDtoString = userID.toString();
-//            System.out.println("11111111");
-//            System.out.println(userIDtoString.split(""));
-//            System.out.println("2222222222");
-//            System.out.println(userID);
-            if(model.UsernameExist(username)) {
-                if(model.CorrectPassword(username, password)){
-                    System.out.println("You got here!");
-                }
-            }
-            return null;
+
+            if(model.CorrectPassword(username, password)){
+                    res.redirect("/signedin");
+            } else {
+                res.redirect("/signin");
+            };
+
+            return ":)";
         });
 
+        get("/signedin", (req, res) -> {
+            HashMap signedin = new HashMap();
+            return new ModelAndView(signedin, "templates/signedin.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/posts", (req, res) -> {
+            res.redirect("/posts");
+            return ":)";
+        });
     }
 }
