@@ -33,3 +33,22 @@ What went well,
 
 What we could improve on,
 - Possibly having a GitHub pull and push strategy to reduce the amount of merge conflicts that occur as merge conflicts can waste time as a group trying to sort them out.
+
+Day 2 - Will
+
+Front End
+- Will
+- Albion
+
+Back End
+- Luke
+- Vikash
+- Adam
+
+Aims
+- Finishing sign-in - make sure password is correct
+- Front end - create Sign-in vtl and Sign-up vtl;
+- Organise the posts newest first
+- Do as many pull requests as frequently as we can (try multiple times when doing a single feature)
+- Date that Acebook posts were posted (Stretch)
+
