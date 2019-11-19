@@ -47,11 +47,9 @@ public class Sql2oModel implements Model {
                     .executeAndFetch(Users.class);
             String user = user1.toString();
             if(user.contains(example_username)){
-
                 does_username_exists = true;
             }
         }
-        System.out.println(does_username_exists);
         return does_username_exists;
     }
 
@@ -72,16 +70,22 @@ public class Sql2oModel implements Model {
         return user;
     }
 
-//    public boolean CorrectPassword(String user_id) {
-////        boolean correct_password = false;
-////        try (Connection conn = sql2o.open()) {
-////            List<Users> user = conn.createQuery("select password from users where user_id=:user_id")
-////                    .addParameter("user_id", user_id)
-////                    .executeAndFetch(Users.class);
-////
-////        }
-////        return Users.check_;
-////    }
+    public boolean CorrectPassword(String user_id, String password) {
+        boolean correct_password = false;
+
+        try (Connection conn = sql2o.open()) {
+            List<Users> user = conn.createQuery("select password from users where user_id=:user_id")
+                    .addParameter("user_id", user_id)
+                    .executeAndFetch(Users.class);
+            password = "[Users(user_id=null, username=null, full_name=null, password=" + password + ")]";
+            if(user.toString().equals(password)){
+                correct_password = true;
+            }
+        }
+
+
+        return correct_password;
+    }
 
     @Override
     public UUID createUser(String username, String full_name, String password) {
