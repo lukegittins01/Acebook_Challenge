@@ -69,8 +69,8 @@ public class Main {
             return new ModelAndView(signed, "templates/signed.vtl");
         }, new VelocityTemplateEngine());
 
-        post("/posts", (req, res) -> {
-            res.redirect("/posts");
+        post("/signed", (req, res) -> {
+            res.redirect("/signin");
             return ":)";
         });
 
@@ -82,5 +82,11 @@ public class Main {
             res.redirect("/signed");
             return null;
         });
+
+        get("/signin", (req, res) -> {
+            HashMap signin = new HashMap();
+            return new ModelAndView(signin, "templates/signin.vtl");
+        }, new VelocityTemplateEngine());
+
     }
 }
