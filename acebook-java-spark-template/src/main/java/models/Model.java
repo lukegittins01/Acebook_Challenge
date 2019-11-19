@@ -13,6 +13,8 @@ public interface Model {
     boolean UsernameExist(String example_username);
 
     List<Users> getUserId(String example_username, String example_password);
+
+    boolean CorrectPassword(String user_id, String example_password);
 }
 
 
