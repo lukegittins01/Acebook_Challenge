@@ -100,4 +100,20 @@ public class Sql2oModel implements Model {
 
         }
     }
+
+    @Override
+    public boolean SetDate(String id, String times, String am_or_pm, String days){
+        boolean something = false;
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("insert into dates(id, times, am_or_pm, days) VALUES (:id, :times, :am_or_pm, :days)")
+                    .addParameter("id", id)
+                    .addParameter("times", times)
+                    .addParameter("am_or_pm", am_or_pm)
+                    .addParameter("days", days)
+                    .executeUpdate();
+            conn.commit();
+            something = true;
+        }
+        return something;
+    }
 }
