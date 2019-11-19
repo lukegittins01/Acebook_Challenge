@@ -70,7 +70,7 @@ public class Main {
             String username = req.queryParams("username");
             String fullname = req.queryParams("full_name");
             String password = req.queryParams("password");
-
+            return null;
         });
     }
 }
