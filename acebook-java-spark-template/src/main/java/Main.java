@@ -64,13 +64,29 @@ public class Main {
             return new ModelAndView(signup, "templates/signup.vtl");
         }, new VelocityTemplateEngine());
 
-        get("/signed", (req, res) -> "Thank you for signing up!");
+        get("/signed", (req, res) -> {
+            HashMap signed = new HashMap();
+            return new ModelAndView(signed, "templates/signed.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/signed", (req, res) -> {
+            res.redirect("/signin");
+            return ":)";
+        });
 
         post("/signedup", (req, res) -> {
             String username = req.queryParams("username");
             String fullname = req.queryParams("full_name");
             String password = req.queryParams("password");
+            UUID id = model.createUser(username, fullname, password);
+            res.redirect("/signed");
             return null;
         });
+
+        get("/signin", (req, res) -> {
+            HashMap signin = new HashMap();
+            return new ModelAndView(signin, "templates/signin.vtl");
+        }, new VelocityTemplateEngine());
+
     }
 }
