@@ -58,5 +58,19 @@ public class Main {
             res.redirect("/posts");
             return ":)";
         });
+
+        get("/signup", (req, res) -> {
+            HashMap signup = new HashMap();
+            return new ModelAndView(signup, "templates/signup.vtl");
+        }, new VelocityTemplateEngine());
+
+        get("/signed", (req, res) -> "Thank you for signing up!");
+
+        post("/signedup", (req, res) -> {
+            String username = req.queryParams("username");
+            String fullname = req.queryParams("full_name");
+            String password = req.queryParams("password");
+
+        });
     }
 }
