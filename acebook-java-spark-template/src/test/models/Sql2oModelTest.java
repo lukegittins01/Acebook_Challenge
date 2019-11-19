@@ -46,6 +46,12 @@ class Sql2oModelTest {
                 .addParameter("content", "example content")
                 .executeUpdate();
 
+//        conn.createQuery("insert into users(user_id, username, full_name, password) VALUES (:user_id, :username, :full_name, :password)")
+//                .addParameter("user_id", id)
+//                .addParameter("username", "example username")
+//                .addParameter("full_name", "example full name")
+//                .addParameter("password", "example password")
+//                .executeUpdate();
         conn.commit();
     }
 
@@ -53,6 +59,8 @@ class Sql2oModelTest {
     void tearDown() {
         Connection conn = sql2o.beginTransaction();
         conn.createQuery("TRUNCATE TABLE posts")
+                .executeUpdate();
+        conn.createQuery("TRUNCATE TABLE users")
                 .executeUpdate();
         conn.commit();
     }
@@ -80,5 +88,38 @@ class Sql2oModelTest {
         List<Post> acebookItems =  new ArrayList<Post>();
         acebookItems.add(new Post(id, "example title", "example content"));
         assertEquals(model.getAllPosts(), acebookItems);
+    }
+    @Test
+    void UsernameExist() {
+        Connection conn = sql2o.beginTransaction();
+        conn.createQuery("insert into users(user_id, username, full_name, password) VALUES (:user_id, :username, :full_name, :password)")
+                .addParameter("user_id", id)
+                .addParameter("username", "example username")
+                .addParameter("full_name", "example full name")
+                .addParameter("password", "example password")
+                .executeUpdate();
+        conn.commit();
+        Model model = new Sql2oModel(sql2o);
+        assertEquals(true, model.UsernameExist("example username"));
+    }
+    @Test
+    void getUserId(){
+        Connection conn = sql2o.beginTransaction();
+        conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+                .addParameter("post_id", id)
+                .addParameter("title", "example title")
+                .addParameter("content", "example content")
+                .executeUpdate();
+
+        conn.commit();
+        Model model = new Sql2oModel(sql2o);
+
+        List<Users> user = conn.createQuery("select user_id from users where username=:username and password=:password")
+                    .addParameter("username", "example username")
+                    .addParameter("password", "example password")
+                    .executeAndFetch(Users.class);
+
+        assertEquals(user, model.getUserId("example username", "example password"));
+
     }
 }
