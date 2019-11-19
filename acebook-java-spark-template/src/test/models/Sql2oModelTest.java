@@ -29,6 +29,7 @@ class Sql2oModelTest {
     });
 
     UUID id = UUID.fromString("49921d6e-e210-4f68-ad7a-afac266278cb");
+    UUID id1 = UUID.fromString("49921d6e-e210-4f68-ad7a-afac266278c1");
 
     @BeforeAll
     static void setUpClass() {
@@ -47,7 +48,7 @@ class Sql2oModelTest {
                 .executeUpdate();
 
         conn.createQuery("insert into users(user_id, username, full_name, password) VALUES (:user_id, :username, :full_name, :password)")
-                .addParameter("user_id", id)
+                .addParameter("user_id", id1)
                 .addParameter("username", "example username")
                 .addParameter("full_name", "example full name")
                 .addParameter("password", "example password")
@@ -58,9 +59,7 @@ class Sql2oModelTest {
     @AfterEach
     void tearDown() {
         Connection conn = sql2o.beginTransaction();
-        conn.createQuery("TRUNCATE TABLE posts")
-                .executeUpdate();
-        conn.createQuery("TRUNCATE TABLE users")
+        conn.createQuery("TRUNCATE TABLE posts, users, dates")
                 .executeUpdate();
         conn.commit();
     }
@@ -81,6 +80,15 @@ class Sql2oModelTest {
         acebookItems.add(new Post(id, "example title", "example content"));
         assertEquals(model.getAllPosts(), acebookItems);
     }
+
+    @Test
+    void createUser() {
+        Model model = new Sql2oModel(sql2o);
+        UUID example = model.createUser("example username", "example full name", "example password");
+        boolean result = (example instanceof UUID);
+        assertEquals(true, result);
+    }
+
 
     @Test
     void getAllPosts() {
@@ -110,6 +118,6 @@ class Sql2oModelTest {
     @Test
     void CorrectPassword(){
         Model model = new Sql2oModel(sql2o);
-        assertEquals(true, model.CorrectPassword(id.toString(),"example password"));
+        assertEquals(true, model.CorrectPassword(id1.toString(),"example password"));
     }
 }
