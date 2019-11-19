@@ -55,29 +55,30 @@ public class Sql2oModel implements Model {
 
 
 
-    @Override
-    public List<Users> getUserId(String username, String password) {
-        List<Users> user;
-        try (Connection conn = sql2o.open()) {
-            user = conn.createQuery("select user_id from users where username=:username and password=:password")
-                    .addParameter("username", username)
-                    .addParameter("password", password)
-                    .executeAndFetch(Users.class);
+//    @Override
+//    public List<Users> getUserId(String username, String password) {
+//        List<Users> user;
+//        try (Connection conn = sql2o.open()) {
+//            user = conn.createQuery("select user_id from users where username=:username and password=:password")
+//                    .addParameter("username", username)
+//                    .addParameter("password", password)
+//                    .executeAndFetch(Users.class);
+//
+//
+//        }
+//
+//        return user;
+//    }
 
-
-        }
-
-        return user;
-    }
-
-    public boolean CorrectPassword(String user_id, String password) {
+    public boolean CorrectPassword(String username, String password) {
         boolean correct_password = false;
 
         try (Connection conn = sql2o.open()) {
-            List<Users> user = conn.createQuery("select password from users where user_id=:user_id")
-                    .addParameter("user_id", user_id)
+            List<Users> user = conn.createQuery("select password from users where username=:username")
+                    .addParameter("username", username)
                     .executeAndFetch(Users.class);
-//            password = "[Users(user_id=null, username=null, full_name=null, password=" + password + ")]";
+
+            password = "[Users(username=null, full_name=null, password=" + password + ")]";
             if(user.toString().equals(password)){
                 correct_password = true;
             }
@@ -88,17 +89,15 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public UUID createUser(String username, String full_name, String password) {
+    public void createUser(String username, String full_name, String password) {
         try (Connection conn = sql2o.beginTransaction()) {
-            UUID userUuid = UUID.randomUUID();
-            conn.createQuery("insert into users(user_id, username, full_name, password) VALUES (:user_id, :username, :full_name, :password)")
-                    .addParameter("user_id", userUuid)
+            conn.createQuery("insert into users(username, full_name, password) VALUES (:username, :full_name, :password)")
                     .addParameter("username", username)
                     .addParameter("full_name", full_name)
                     .addParameter("password", password)
                     .executeUpdate();
             conn.commit();
-            return userUuid;
+
         }
     }
 }

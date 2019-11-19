@@ -80,7 +80,7 @@ public class Main {
             String username = req.queryParams("username");
             String fullname = req.queryParams("full_name");
             String password = req.queryParams("password");
-            UUID id = model.createUser(username, fullname, password);
+            model.createUser(username, fullname, password);
             res.redirect("/signed");
             return null;
         });
@@ -93,14 +93,14 @@ public class Main {
         post("/signedin", (req, res) -> {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
-            List<Users> userID = model.getUserId(username, password);
-            String userIDtoString = userID.toString();
+//            List<Users> userID = model.getUserId(username, password);
+//            String userIDtoString = userID.toString();
 //            System.out.println("11111111");
 //            System.out.println(userIDtoString.split(""));
 //            System.out.println("2222222222");
 //            System.out.println(userID);
             if(model.UsernameExist(username)) {
-                if(model.CorrectPassword(userIDtoString, password)){
+                if(model.CorrectPassword(username, password)){
                     System.out.println("You got here!");
                 }
             }
