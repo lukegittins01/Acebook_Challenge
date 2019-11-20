@@ -54,22 +54,6 @@ public class Sql2oModel implements Model {
     }
 
 
-
-//    @Override
-//    public List<Users> getUserId(String username, String password) {
-//        List<Users> user;
-//        try (Connection conn = sql2o.open()) {
-//            user = conn.createQuery("select user_id from users where username=:username and password=:password")
-//                    .addParameter("username", username)
-//                    .addParameter("password", password)
-//                    .executeAndFetch(Users.class);
-//
-//
-//        }
-//
-//        return user;
-//    }
-
     public boolean CorrectPassword(String username, String password) {
         boolean correct_password = false;
 
@@ -77,14 +61,11 @@ public class Sql2oModel implements Model {
             List<Users> user = conn.createQuery("select password from users where username=:username")
                     .addParameter("username", username)
                     .executeAndFetch(Users.class);
-
             password = "[Users(username=null, full_name=null, password=" + password + ")]";
             if(user.toString().equals(password)){
                 correct_password = true;
             }
         }
-
-
         return correct_password;
     }
 
