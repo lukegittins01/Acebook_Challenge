@@ -52,3 +52,15 @@ Aims
 - Do as many pull requests as frequently as we can (try multiple times when doing a single feature)
 - Date that Acebook posts were posted (Stretch)
 
+Completed:
+- Finished sign in and sign up (methods and front end)
+- Occasional pull requests with minimal merge conflicts
+- Lots of tests of methods in back end
+- Finished majority of get/post requests
+
+What went well:
+- Continued to work well as a team, both as pairs and as a large group;
+- Made good progress through goals we set ourselves on Trello
+
+What we could improve on:
+- More pull requests so that we can review each other's code more
