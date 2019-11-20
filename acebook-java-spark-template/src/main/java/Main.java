@@ -8,6 +8,7 @@ import org.sql2o.converters.UUIDConverter;
 import org.sql2o.quirks.PostgresQuirks;
 import spark.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +46,7 @@ public class Main {
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
+            posts.put("dates", model.getAllDates());
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
 
@@ -57,6 +59,8 @@ public class Main {
             String title = req.queryParams("title");
             String content = req.queryParams("content");
             UUID id = model.createPost(title, content);
+            Date currentDate = new Date();
+            model.SetDate(id.toString(), currentDate.toString());
             res.redirect("/posts");
             return ":)";
         });
