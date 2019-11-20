@@ -1,18 +1,69 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      table-layout: fixed;
+      height: 30px;
+      width: 250px;
+      text-align: center;
+    }
+
+    #tablePosts {
+
+        position: fixed;
+        left: 460px;
+        top: 10%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+    }
+
+    #tableDates {
+        position: fixed;
+        right: 460px;
+        top: 10%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+    }
+
+    #header {
+        text-align: center;
+    }
+    </style>
     <title>Acebook!</title>
   </head>
   <body>
-    <h1>Welcome to acebook</h1>
-    <ul>
-         #foreach ( $i in $dates )
-            $i.datecreated
-         #end
-          #foreach ( $i in $posts )
-             <strong>$i.title</strong>
-             <li>$i.content</li>
-          #end
-    </ul>
+    <h1 id="header">Welcome to acebook</h1>
+
+    <section id="tablePosts">
+         <table>
+            <tr>
+                <th>Posts</th>
+            </tr>
+            #foreach ( $i in $posts )
+                <tr>
+                    <td>$i.title $i.content</td>
+                </tr>
+            #end
+
+         </table>
+    </section>
+
+    <section id="tableDates">
+        <table>
+            <tr>
+                <th>Dates</th>
+            </tr>
+            #foreach ( $i in $dates )
+                <tr>
+                    <td>$i.datecreated</td>
+                </tr>
+            #end
+        </table>
+    </section>
+
   </body>
 </html>
