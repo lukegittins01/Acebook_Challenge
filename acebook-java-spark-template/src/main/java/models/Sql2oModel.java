@@ -46,7 +46,7 @@ public class Sql2oModel implements Model {
             List<Users> user1 = conn.createQuery("select username from users")
                     .executeAndFetch(Users.class);
             String user = user1.toString();
-            if(user.contains(example_username)){
+            if (user.contains(example_username)) {
                 does_username_exists = true;
             }
         }
@@ -62,7 +62,7 @@ public class Sql2oModel implements Model {
                     .addParameter("username", username)
                     .executeAndFetch(Users.class);
             password = "[Users(username=null, full_name=null, password=" + password + ")]";
-            if(user.toString().equals(password)){
+            if (user.toString().equals(password)) {
                 correct_password = true;
             }
         }
@@ -83,18 +83,27 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public boolean SetDate(String id, String times, String am_or_pm, String days){
+    public boolean SetDate(String id, String datecreated) {
         boolean something = false;
         try (Connection conn = sql2o.beginTransaction()) {
-            conn.createQuery("insert into dates(id, times, am_or_pm, days) VALUES (:id, :times, :am_or_pm, :days)")
+            conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
                     .addParameter("id", id)
-                    .addParameter("times", times)
-                    .addParameter("am_or_pm", am_or_pm)
-                    .addParameter("days", days)
+                    .addParameter("datecreated", datecreated)
                     .executeUpdate();
             conn.commit();
             something = true;
         }
         return something;
+    }
+
+
+    @Override
+    public List getAllDates() {
+        try (Connection conn = sql2o.open()) {
+            List list_of_dates = (conn.createQuery("select datecreated from dates ORDER BY id")
+                    .executeAndFetch(Dates.class));
+            System.out.println(list_of_dates);
+            return list_of_dates;
+        }
     }
 }

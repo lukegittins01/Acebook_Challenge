@@ -11,7 +11,9 @@ public interface Model {
     boolean CorrectPassword(String username, String example_password);
     void createUser(String example_username, String example_full_name, String example_password);
 
-    boolean SetDate(String id, String times, String am_or_pm, String days);
+    boolean SetDate(String id, String datecreated);
+
+    List getAllDates();
 }
 
 

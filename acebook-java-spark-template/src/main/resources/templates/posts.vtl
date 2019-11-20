@@ -8,7 +8,11 @@
     <ul>
         #foreach ( $i in $posts )
             <strong>$i.title</strong>
-            <li>$i.content</li>
+            <li>$i.content </li>
+         #end
+
+         #foreach ( $i in $dates )
+            $i.datecreated
          #end
     </ul>
   </body>

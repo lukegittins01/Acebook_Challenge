@@ -53,11 +53,9 @@ class Sql2oModelTest {
                 .addParameter("password", "example password")
                 .executeUpdate();
 
-        conn.createQuery("insert into dates(id, times, am_or_pm, days) VALUES (:id, :times, :am_or_pm, :days)")
+        conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
                 .addParameter("id", id.toString())
-                .addParameter("times", "10:00")
-                .addParameter("am_or_pm", "AM")
-                .addParameter("days", "Tuesday")
+                .addParameter("datecreated", "Wed Nov 20 10:37:43 GMT 2019")
                 .executeUpdate();
         conn.commit();
     }
@@ -124,7 +122,7 @@ class Sql2oModelTest {
     @Test
     void AddTimeStamp(){
         Model model = new Sql2oModel(sql2o);
-        model.SetDate(id.toString(), "10:00", "AM", "Tuesday");
-        assertEquals(true, model.SetDate(id.toString(), "10:00", "AM", "Tuesday"));
+        model.SetDate(id.toString(), "Wed Nov 20 10:37:43 GMT 2019");
+        assertEquals(true, model.SetDate(id.toString(), "Wed Nov 20 10:37:43 GMT 2019"));
     }
 }
