@@ -87,13 +87,23 @@ class Sql2oModelTest {
         assertEquals(model.getAllPosts(), acebookItems);
     }
 
-//    @Test
-//    void createUser() {
-//        Model model = new Sql2oModel(sql2o);
-//        UUID example = model.createUser("example username", "example full name", "example password");
-//        boolean result = (example instanceof UUID);
-//        assertEquals(true, result);
-//    }
+    @Test
+    void createUser() {
+        Connection conn = sql2o.open();
+        Model model = new Sql2oModel(sql2o);
+        boolean result = false;
+        model.createUser("example username2", "example full name2", "example password2");
+        List<Users> list_of_users;
+        list_of_users = (conn.createQuery("select * from users").executeAndFetch(Users.class));
+        String test = "Users(username=example username2, full_name=example full name2, password=example password2)";
+
+        if(list_of_users.toString().contains(test)){
+            result = true;
+        } else {
+            result = false;
+        }
+        assertTrue(result);
+    }
 
 
     @Test
