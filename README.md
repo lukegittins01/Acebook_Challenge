@@ -64,3 +64,9 @@ What went well:
 
 What we could improve on:
 - More pull requests so that we can review each other's code more
+
+Day 3 - Albion
+
+front end: atempted to show the posts and dates created (although had to do it a bad way with lots of technical debt)
+back end: atempted to use heruko
+(was a dificult day)
