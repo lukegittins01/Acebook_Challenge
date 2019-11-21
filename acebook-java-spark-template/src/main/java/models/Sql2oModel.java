@@ -16,13 +16,14 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public UUID createPost(String title, String content) {
+    public UUID createPost(String title, String content, String datecreated) {
         try (Connection conn = sql2o.beginTransaction()) {
             UUID postUuid = UUID.randomUUID();
-            conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+            conn.createQuery("insert into posts(post_id, title, content, datecreated) VALUES (:post_id, :title, :content, :datecreated)")
                     .addParameter("post_id", postUuid)
                     .addParameter("title", title)
                     .addParameter("content", content)
+                    .addParameter("datecreated", datecreated)
                     .executeUpdate();
             conn.commit();
             return postUuid;
@@ -33,7 +34,7 @@ public class Sql2oModel implements Model {
     @Override
     public List<Post> getAllPosts() {
         try (Connection conn = sql2o.open()) {
-            List<Post> acebookItems = conn.createQuery("select * from posts ORDER BY post_id")
+            List<Post> acebookItems = conn.createQuery("SELECT * FROM posts ORDER BY datecreated DESC LIMIT 300 OFFSET 0;")
                     .executeAndFetch(Post.class);
             return acebookItems;
         }
@@ -46,55 +47,40 @@ public class Sql2oModel implements Model {
             List<Users> user1 = conn.createQuery("select username from users")
                     .executeAndFetch(Users.class);
             String user = user1.toString();
-            if(user.contains(example_username)){
-
+            if (user.contains(example_username)) {
                 does_username_exists = true;
             }
         }
-        System.out.println(does_username_exists);
         return does_username_exists;
     }
 
 
+    public boolean CorrectPassword(String username, String password) {
+        boolean correct_password = false;
 
-    @Override
-    public List<Users> getUserId(String username, String password) {
-        List<Users> user;
         try (Connection conn = sql2o.open()) {
-            user = conn.createQuery("select user_id from users where username=:username and password=:password")
+            List<Users> user = conn.createQuery("select password from users where username=:username")
                     .addParameter("username", username)
-                    .addParameter("password", password)
                     .executeAndFetch(Users.class);
-
-
+            password = "[Users(username=null, full_name=null, password=" + password + ")]";
+            if (user.toString().equals(password)) {
+                correct_password = true;
+            }
         }
-
-        return user;
+        return correct_password;
     }
 
-//    public boolean CorrectPassword(String user_id) {
-////        boolean correct_password = false;
-////        try (Connection conn = sql2o.open()) {
-////            List<Users> user = conn.createQuery("select password from users where user_id=:user_id")
-////                    .addParameter("user_id", user_id)
-////                    .executeAndFetch(Users.class);
-////
-////        }
-////        return Users.check_;
-////    }
-
     @Override
-    public UUID createUser(String username, String full_name, String password) {
+    public void createUser(String username, String full_name, String password) {
         try (Connection conn = sql2o.beginTransaction()) {
-            UUID userUuid = UUID.randomUUID();
-            conn.createQuery("insert into users(user_id, username, full_name, password) VALUES (:user_id, :username, :full_name, :password)")
-                    .addParameter("user_id", userUuid)
+            conn.createQuery("insert into users(username, full_name, password) VALUES (:username, :full_name, :password)")
                     .addParameter("username", username)
                     .addParameter("full_name", full_name)
                     .addParameter("password", password)
                     .executeUpdate();
             conn.commit();
-            return userUuid;
+
         }
     }
 }
+

@@ -10,11 +10,13 @@ public class Post {
     private UUID post_id;
     private String title;
     private String content;
+    private String datecreated;
 
-    public Post(UUID post_id, String title, String content) {
+    public Post(UUID post_id, String title, String content, String datecreated) {
         this.post_id = post_id;
         this.title = title;
         this.content = content;
+        this.datecreated = datecreated;
     }
 
 }

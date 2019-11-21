@@ -1,5 +1,6 @@
 import models.Model;
 import models.Sql2oModel;
+import models.Users;
 import org.apache.log4j.BasicConfigurator;
 import org.flywaydb.core.Flyway;
 import org.sql2o.Sql2o;
@@ -7,7 +8,9 @@ import org.sql2o.converters.UUIDConverter;
 import org.sql2o.quirks.PostgresQuirks;
 import spark.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import static spark.Spark.get;
@@ -36,13 +39,23 @@ public class Main {
 
         get("/posts", (req, res) -> {
 
+            String username = req.session().attribute("user");
+            String signedIn = req.session().attribute("Signed_In?");
+            if(signedIn == "true"){
+                req.session().attribute("user", username);
+            }else{
+                req.session().attribute("user", "Hello there!");
+                username = req.session().attribute("user");
+            }
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world");
+                UUID id = model.createPost("hello", "world", "New Date");
+                Date currentDate = new Date();
             }
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
+            posts.put("username", username);
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
 
@@ -54,7 +67,9 @@ public class Main {
         post("/create", (req, res) -> {
             String title = req.queryParams("title");
             String content = req.queryParams("content");
-            UUID id = model.createPost(title, content);
+            Date currentDate = new Date();
+            String date = currentDate.toString();
+            UUID id = model.createPost(title, content, date);
             res.redirect("/posts");
             return ":)";
         });
@@ -64,13 +79,54 @@ public class Main {
             return new ModelAndView(signup, "templates/signup.vtl");
         }, new VelocityTemplateEngine());
 
-        get("/signed", (req, res) -> "Thank you for signing up!");
+        get("/signed", (req, res) -> {
+            HashMap signed = new HashMap();
+            return new ModelAndView(signed, "templates/signed.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/signed", (req, res) -> {
+            res.redirect("/signin");
+            return ":)";
+        });
 
         post("/signedup", (req, res) -> {
             String username = req.queryParams("username");
             String fullname = req.queryParams("full_name");
             String password = req.queryParams("password");
+            model.createUser(username, fullname, password);
+            res.redirect("/signed");
+            return null;
+        });
 
+        get("/signin", (req, res) -> {
+            HashMap signin = new HashMap();
+            return new ModelAndView(signin, "templates/signin.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/signedin", (req, res) -> {
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+
+            if(model.CorrectPassword(username, password)){
+                    res.redirect("/signedin");
+            } else {
+                res.redirect("/signin");
+            };
+
+            req.session().attribute("user",username);
+            req.session().attribute("Signed_In?","true");
+
+            return ":)";
+        });
+
+        get("/signedin", (req, res) -> {
+            HashMap signedin = new HashMap();
+            return new ModelAndView(signedin, "templates/signedin.vtl");
+        }, new VelocityTemplateEngine());
+
+        post("/posts", (req, res) -> {
+            res.redirect("/posts");
+            return ":)";
         });
     }
 }
