@@ -35,7 +35,7 @@ public class Sql2oModel implements Model {
     @Override
     public List<Post> getAllPosts() {
         try (Connection conn = sql2o.open()) {
-            List<Post> acebookItems = conn.createQuery("select * from posts ORDER BY post_id")
+            List<Post> acebookItems = conn.createQuery("SELECT * FROM posts ORDER BY datecreated DESC LIMIT 300 OFFSET 0;")
                     .executeAndFetch(Post.class);
             return acebookItems;
         }
