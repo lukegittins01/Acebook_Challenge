@@ -14,15 +14,9 @@
     #tablePosts {
 
         position: fixed;
-        left: 460px;
+        left: 335px;
         top: 10%;
 
-    }
-
-    #tableDates {
-        position: fixed;
-        right: 460px;
-        top: 10%;
     }
 
     #header {
@@ -37,12 +31,14 @@
     <section id="tablePosts">
          <table>
             <tr>
-                <th>Posts</th>
+                <th>Title</th>
+                <th>Content</th>
                 <th>Dates</th>
             </tr>
             #foreach ( $i in $posts )
                 <tr>
-                    <td><strong>$i.title</strong> <br> $i.content</td>
+                    <td><strong>$i.title</strong></td>
+                    <td>$i.content</td>
                     <td>$i.datecreated</td>
                 </tr>
             #end
