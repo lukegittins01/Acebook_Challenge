@@ -69,8 +69,7 @@ class Sql2oModelTest {
         Model model = new Sql2oModel(sql2o);
         model.createPost( "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019");
         boolean result = false;
-        System.out.println(model.getAllPosts().toString());
-        String test = "title=example title, content=example content";
+        String test = "title=example title, content=example content, datecreated=Wed Nov 20 10:37:43 GMT 2019";
         if(model.getAllPosts().toString().contains(test)){
             result = true;
         }
@@ -106,12 +105,12 @@ class Sql2oModelTest {
     @Test
     void UsernameExist() {
         Model model = new Sql2oModel(sql2o);
-        assertEquals(true, model.UsernameExist("example username"));
+        assertTrue(model.UsernameExist("example username"));
     }
 
     @Test
     void CorrectPassword(){
         Model model = new Sql2oModel(sql2o);
-        assertEquals(true, model.CorrectPassword("example username","example password"));
+        assertTrue(model.CorrectPassword("example username","example password"));
     }
 }
