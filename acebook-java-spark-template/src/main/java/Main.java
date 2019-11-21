@@ -39,16 +39,23 @@ public class Main {
 
         get("/posts", (req, res) -> {
 
+            String username = req.session().attribute("user");
+            String signedIn = req.session().attribute("Signed_In?");
+            if(signedIn == "true"){
+                req.session().attribute("user", username);
+            }else{
+                req.session().attribute("user", "Hello there!");
+                username = req.session().attribute("user");
+            }
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world, ");
+                UUID id = model.createPost("hello", "world", "New Date");
                 Date currentDate = new Date();
-                model.SetDate(id.toString(), currentDate.toString());
             }
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
-            posts.put("dates", model.getAllDates());
+            posts.put("username", username);
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
 
@@ -60,9 +67,9 @@ public class Main {
         post("/create", (req, res) -> {
             String title = req.queryParams("title");
             String content = req.queryParams("content");
-            UUID id = model.createPost(title, content);
             Date currentDate = new Date();
-            model.SetDate(id.toString(), currentDate.toString());
+            String date = currentDate.toString();
+            UUID id = model.createPost(title, content, date);
             res.redirect("/posts");
             return ":)";
         });
@@ -105,6 +112,9 @@ public class Main {
             } else {
                 res.redirect("/signin");
             };
+
+            req.session().attribute("user",username);
+            req.session().attribute("Signed_In?","true");
 
             return ":)";
         });
