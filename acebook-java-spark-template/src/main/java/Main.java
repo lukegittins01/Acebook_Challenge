@@ -74,6 +74,17 @@ public class Main {
             return ":)";
         });
 
+        post("/createbutton", (req, res) ->{
+           res.redirect("/create");
+           return null;
+        });
+
+        post("/signout", (req, res) ->{
+            req.session().attribute("Signed_In?", "false");
+            res.redirect("/posts");
+            return null;
+        });
+
         get("/signup", (req, res) -> {
             HashMap signup = new HashMap();
             return new ModelAndView(signup, "templates/signup.vtl");
@@ -126,6 +137,10 @@ public class Main {
 
         post("/posts", (req, res) -> {
             res.redirect("/posts");
+            return ":)";
+        });
+        post("/signin", (req, res) -> {
+            res.redirect("/signin");
             return ":)";
         });
     }
