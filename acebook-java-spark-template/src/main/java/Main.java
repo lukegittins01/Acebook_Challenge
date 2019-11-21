@@ -39,15 +39,32 @@ public class Main {
 
         get("/posts", (req, res) -> {
 
+            String username = req.session().attribute("user");
+            String signedIn = req.session().attribute("Signed_In?");
+            if(signedIn == "true"){
+                req.session().attribute("user", username);
+            }else{
+                req.session().attribute("user", "Hello there!");
+                username = req.session().attribute("user");
+            }
 
             if(model.getAllPosts().size() == 0) {
+<<<<<<< HEAD
                 Date currentDate = new Date();
                 String date = currentDate.toString();
                 UUID id = model.createPost("hello", "world, ", date);
+=======
+                UUID id = model.createPost("hello", "world", "New Date");
+                Date currentDate = new Date();
+>>>>>>> d4440b105f631bc0d2f4d049a95714138c289fc1
             }
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
+<<<<<<< HEAD
+=======
+            posts.put("username", username);
+>>>>>>> d4440b105f631bc0d2f4d049a95714138c289fc1
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
 
@@ -104,6 +121,9 @@ public class Main {
             } else {
                 res.redirect("/signin");
             };
+
+            req.session().attribute("user",username);
+            req.session().attribute("Signed_In?","true");
 
             return ":)";
         });

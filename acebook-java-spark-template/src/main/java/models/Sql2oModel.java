@@ -84,28 +84,3 @@ public class Sql2oModel implements Model {
     }
 }
 
-//    @Override
-//    public boolean SetDate(String id, String datecreated) {
-//        boolean something = false;
-//        try (Connection conn = sql2o.beginTransaction()) {
-//            conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
-//                    .addParameter("id", id)
-//                    .addParameter("datecreated", datecreated)
-//                    .executeUpdate();
-//            conn.commit();
-//            something = true;
-//        }
-//        return something;
-//    }
-
-
-//    @Override
-//    public List getAllDates() {
-//        try (Connection conn = sql2o.open()) {
-//            List list_of_dates = (conn.createQuery("select datecreated from dates ORDER BY id")
-//                    .executeAndFetch(Dates.class));
-//            System.out.println(list_of_dates);
-//            return list_of_dates;
-//        }
-//    }
-//}
