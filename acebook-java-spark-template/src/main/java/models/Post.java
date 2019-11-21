@@ -11,12 +11,14 @@ public class Post {
     private String title;
     private String content;
     private String datecreated;
+    private String usercreated;
 
-    public Post(UUID post_id, String title, String content, String datecreated) {
+    public Post(UUID post_id, String title, String content, String datecreated, String usercreated) {
         this.post_id = post_id;
         this.title = title;
         this.content = content;
         this.datecreated = datecreated;
+        this.usercreated = usercreated;
     }
 
 }
