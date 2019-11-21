@@ -11,23 +11,13 @@
     }
 
     #tablePosts {
-
         position: fixed;
         left: 460px;
         top: 10%;
         overflow-x: scroll;
-        overflow-y: hidden;
-
+        overflow-y: auto;
     }
 
-    #tableDates {
-        position: fixed;
-        right: 460px;
-        top: 10%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-
-    }
 
     #header {
         text-align: center;
@@ -36,33 +26,22 @@
     <title>Acebook!</title>
   </head>
   <body>
-    <h1 id="header">Welcome to acebook</h1>
+    <h1 id="header">Welcome to acebook, $username</h1>
 
     <section id="tablePosts">
          <table>
             <tr>
                 <th>Posts</th>
+                <th>Date</th>
             </tr>
             #foreach ( $i in $posts )
                 <tr>
                     <td>$i.title $i.content</td>
+                    <td>$i.datecreated</td>
                 </tr>
             #end
 
          </table>
-    </section>
-
-    <section id="tableDates">
-        <table>
-            <tr>
-                <th>Dates</th>
-            </tr>
-            #foreach ( $i in $dates )
-                <tr>
-                    <td>$i.datecreated</td>
-                </tr>
-            #end
-        </table>
     </section>
 
   </body>
