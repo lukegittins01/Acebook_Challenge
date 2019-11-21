@@ -10,10 +10,6 @@ public interface Model {
     boolean UsernameExist(String example_username);
     boolean CorrectPassword(String username, String example_password);
     void createUser(String example_username, String example_full_name, String example_password);
-
-//    boolean SetDate(String id, String datecreated);
-//
-//    List getAllDates();
 }
 
 
