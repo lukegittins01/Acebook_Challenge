@@ -13,13 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 public class Main {
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
+        staticFileLocation("/templates");
 
         Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/acebook", null, null).load();
         flyway.migrate();
@@ -33,6 +33,10 @@ public class Main {
 
         Model model = new Sql2oModel(sql2o);
 
+        //post("/stylesheet.css", (req,res) -> {
+
+            //return null;
+        //});
 
         get("/", (req, res) -> "Hello World");
 
@@ -73,6 +77,17 @@ public class Main {
             UUID id = model.createPost(title, content, date, usercreated);
             res.redirect("/posts");
             return ":)";
+        });
+
+        post("/createbutton", (req, res) ->{
+           res.redirect("/create");
+           return null;
+        });
+
+        post("/signout", (req, res) ->{
+            req.session().attribute("Signed_In?", "false");
+            res.redirect("/posts");
+            return null;
         });
 
         get("/signup", (req, res) -> {
@@ -127,6 +142,14 @@ public class Main {
 
         post("/posts", (req, res) -> {
             res.redirect("/posts");
+            return ":)";
+        });
+        post("/signin", (req, res) -> {
+            res.redirect("/signin");
+            return ":)";
+        });
+        post("/signup", (req, res) -> {
+            res.redirect("/signup");
             return ":)";
         });
     }

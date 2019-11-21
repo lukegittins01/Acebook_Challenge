@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-    table, th, td {
-      border: 1px solid black;
-      table-layout: fixed;
-      height: 30px;
-      width: 250px;
-      text-align: center;
-    }
-
-    #tablePosts {
-        position: fixed;
-        left: 460px;
-        top: 10%;
-        overflow-x: scroll;
-        overflow-y: auto;
-    }
-
-
-    #header {
-        text-align: center;
-    }
-    </style>
+    <link rel="stylesheet" href="/stylesheet.css" >
     <title>Acebook!</title>
   </head>
-  <body>
-    <h1 id="header">Welcome to acebook, $username</h1>
 
+  <body style="background-color: #234356;">
+    <h1>Welcome to Acebook, $username</h1>
+    <ul>
+    <li>
+    <form action="/createbutton" method="POST">
+        <input class="navigation" type="submit" name="createButton" value="Create a Post">
+    </form>
+</li>
+<li>
+    <form action="/signout" method="POST">
+            <input class="navigation" type="submit" name="signout" value="Sign out">
+        </form>
+        </li>
+        <li>
+        <form action="/signin" method="POST">
+                    <input class="navigation" type="submit" name="signin" value="Sign in">
+                </form>
+                </li>
+                <li>
+                        <form action="/signup" method="POST">
+                                    <input class="navigation" type="submit" name="signup" value="Sign Up">
+                                </form>
+                                </li>
+                </ul>
     <section id="tablePosts">
-         <table>
-            <tr>
-                <th>Posts</th>
-                <th>Date</th>
-            </tr>
+
+         <br>
+            <p1>Timeline</p1>
+            <br>
             #foreach ( $i in $posts )
-                <tr>
-                    <td>$i.title $i.content</td>
-                    <td>$i.datecreated</td>
-                </tr>
+                <p2>
+                    <t>$i.title </t> <br>
+                    <c>$i.content </c><br>
+                    <d>$i.datecreated</d><br>
+                    <br>
+                </p2>
             #end
 
-         </table>
     </section>
-
   </body>
 </html>
