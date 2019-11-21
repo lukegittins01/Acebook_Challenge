@@ -41,14 +41,13 @@ public class Main {
 
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world, ");
                 Date currentDate = new Date();
-                model.SetDate(id.toString(), currentDate.toString());
+                String date = currentDate.toString();
+                UUID id = model.createPost("hello", "world, ", date);
             }
 
             HashMap posts = new HashMap();
             posts.put("posts", model.getAllPosts());
-            posts.put("dates", model.getAllDates());
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
 
@@ -60,9 +59,9 @@ public class Main {
         post("/create", (req, res) -> {
             String title = req.queryParams("title");
             String content = req.queryParams("content");
-            UUID id = model.createPost(title, content);
             Date currentDate = new Date();
-            model.SetDate(id.toString(), currentDate.toString());
+            String date = currentDate.toString();
+            UUID id = model.createPost(title, content, date);
             res.redirect("/posts");
             return ":)";
         });

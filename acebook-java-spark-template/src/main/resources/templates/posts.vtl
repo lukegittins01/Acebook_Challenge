@@ -5,9 +5,10 @@
     table, th, td {
       border: 1px solid black;
       table-layout: fixed;
-      height: 30px;
+      height: 40px;
       width: 250px;
       text-align: center;
+      overflow-y: scroll;
     }
 
     #tablePosts {
@@ -15,8 +16,6 @@
         position: fixed;
         left: 460px;
         top: 10%;
-        overflow-x: scroll;
-        overflow-y: hidden;
 
     }
 
@@ -24,9 +23,6 @@
         position: fixed;
         right: 460px;
         top: 10%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-
     }
 
     #header {
@@ -42,27 +38,16 @@
          <table>
             <tr>
                 <th>Posts</th>
+                <th>Dates</th>
             </tr>
             #foreach ( $i in $posts )
                 <tr>
-                    <td>$i.title $i.content</td>
+                    <td><strong>$i.title</strong> <br> $i.content</td>
+                    <td>$i.datecreated</td>
                 </tr>
             #end
 
          </table>
-    </section>
-
-    <section id="tableDates">
-        <table>
-            <tr>
-                <th>Dates</th>
-            </tr>
-            #foreach ( $i in $dates )
-                <tr>
-                    <td>$i.datecreated</td>
-                </tr>
-            #end
-        </table>
     </section>
 
   </body>
