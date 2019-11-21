@@ -53,7 +53,7 @@ public class Main {
             }
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world", "New Date");
+                UUID id = model.createPost("hello", "world", "New Date", "New User");
                 Date currentDate = new Date();
             }
 
@@ -71,9 +71,10 @@ public class Main {
         post("/create", (req, res) -> {
             String title = req.queryParams("title");
             String content = req.queryParams("content");
+            String usercreated = "user";
             Date currentDate = new Date();
             String date = currentDate.toString();
-            UUID id = model.createPost(title, content, date);
+            UUID id = model.createPost(title, content, date, usercreated);
             res.redirect("/posts");
             return ":)";
         });

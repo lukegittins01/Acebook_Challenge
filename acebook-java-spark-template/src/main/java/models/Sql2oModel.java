@@ -16,14 +16,15 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public UUID createPost(String title, String content, String datecreated) {
+    public UUID createPost(String title, String content, String datecreated, String usercreated) {
         try (Connection conn = sql2o.beginTransaction()) {
             UUID postUuid = UUID.randomUUID();
-            conn.createQuery("insert into posts(post_id, title, content, datecreated) VALUES (:post_id, :title, :content, :datecreated)")
+            conn.createQuery("insert into posts(post_id, title, content, datecreated, usercreated) VALUES (:post_id, :title, :content, :datecreated, :usercreated)")
                     .addParameter("post_id", postUuid)
                     .addParameter("title", title)
                     .addParameter("content", content)
                     .addParameter("datecreated", datecreated)
+                    .addParameter("usercreated", usercreated)
                     .executeUpdate();
             conn.commit();
             return postUuid;
@@ -34,7 +35,7 @@ public class Sql2oModel implements Model {
     @Override
     public List<Post> getAllPosts() {
         try (Connection conn = sql2o.open()) {
-            List<Post> acebookItems = conn.createQuery("select * from posts ORDER BY post_id")
+            List<Post> acebookItems = conn.createQuery("SELECT * FROM posts ORDER BY datecreated DESC LIMIT 300 OFFSET 0;")
                     .executeAndFetch(Post.class);
             return acebookItems;
         }
