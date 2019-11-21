@@ -41,11 +41,12 @@ class Sql2oModelTest {
     @BeforeEach
     void setUp() {
         Connection conn = sql2o.beginTransaction();
-        conn.createQuery("insert into posts(post_id, title, content, datecreated) VALUES (:post_id, :title, :content, :datecreated)")
+        conn.createQuery("insert into posts(post_id, title, content, datecreated, usercreated) VALUES (:post_id, :title, :content, :datecreated, :usercreated)")
                 .addParameter("post_id", id)
                 .addParameter("title", "example title")
                 .addParameter("content", "example content")
                 .addParameter("datecreated", "Wed Nov 20 10:37:43 GMT 2019")
+                .addParameter("usercreated", "example user")
                 .executeUpdate();
 
         conn.createQuery("insert into users(username, full_name, password) VALUES (:username, :full_name, :password)")
@@ -67,9 +68,9 @@ class Sql2oModelTest {
     @Test
     void createPost() {
         Model model = new Sql2oModel(sql2o);
-        model.createPost( "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019");
+        model.createPost( "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user");
         boolean result = false;
-        String test = "title=example title, content=example content, datecreated=Wed Nov 20 10:37:43 GMT 2019";
+        String test = "title=example title, content=example content, datecreated=Wed Nov 20 10:37:43 GMT 2019, usercreated=example user";
         if(model.getAllPosts().toString().contains(test)){
             result = true;
         }
@@ -99,7 +100,7 @@ class Sql2oModelTest {
     void getAllPosts() {
         Model model = new Sql2oModel(sql2o);
         List<Post> acebookItems =  new ArrayList<Post>();
-        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019"));
+        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user"));
         assertEquals(model.getAllPosts(), acebookItems);
     }
     @Test
@@ -112,5 +113,14 @@ class Sql2oModelTest {
     void CorrectPassword(){
         Model model = new Sql2oModel(sql2o);
         assertTrue(model.CorrectPassword("example username","example password"));
+    }
+
+    @Test
+    void UsersModel(){
+        Model model = new Sql2oModel(sql2o);
+        List<Users> userList = new ArrayList<Users>();
+        Users userinstance = new Users("username", "fullname", "password");
+        userList.add(userinstance);
+        assertEquals(userList.get(0), userinstance);
     }
 }
