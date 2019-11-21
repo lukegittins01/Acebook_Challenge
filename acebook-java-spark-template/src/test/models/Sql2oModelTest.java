@@ -41,10 +41,11 @@ class Sql2oModelTest {
     @BeforeEach
     void setUp() {
         Connection conn = sql2o.beginTransaction();
-        conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+        conn.createQuery("insert into posts(post_id, title, content, datecreated) VALUES (:post_id, :title, :content, :datecreated)")
                 .addParameter("post_id", id)
                 .addParameter("title", "example title")
                 .addParameter("content", "example content")
+                .addParameter("datecreated", "Wed Nov 20 10:37:43 GMT 2019")
                 .executeUpdate();
 
         conn.createQuery("insert into users(username, full_name, password) VALUES (:username, :full_name, :password)")
@@ -52,18 +53,13 @@ class Sql2oModelTest {
                 .addParameter("full_name", "example full name")
                 .addParameter("password", "example password")
                 .executeUpdate();
-
-        conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
-                .addParameter("id", id.toString())
-                .addParameter("datecreated", "Wed Nov 20 10:37:43 GMT 2019")
-                .executeUpdate();
         conn.commit();
     }
 
     @AfterEach
     void tearDown() {
         Connection conn = sql2o.beginTransaction();
-        conn.createQuery("TRUNCATE TABLE posts, users, dates")
+        conn.createQuery("TRUNCATE TABLE posts, users")
                 .executeUpdate();
         conn.commit();
     }
@@ -71,7 +67,7 @@ class Sql2oModelTest {
     @Test
     void createPost() {
         Model model = new Sql2oModel(sql2o);
-        model.createPost( "example title", "example content");
+        model.createPost( "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019");
         boolean result = false;
         System.out.println(model.getAllPosts().toString());
         String test = "title=example title, content=example content";
@@ -104,7 +100,7 @@ class Sql2oModelTest {
     void getAllPosts() {
         Model model = new Sql2oModel(sql2o);
         List<Post> acebookItems =  new ArrayList<Post>();
-        acebookItems.add(new Post(id, "example title", "example content"));
+        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019"));
         assertEquals(model.getAllPosts(), acebookItems);
     }
     @Test
@@ -117,12 +113,5 @@ class Sql2oModelTest {
     void CorrectPassword(){
         Model model = new Sql2oModel(sql2o);
         assertEquals(true, model.CorrectPassword("example username","example password"));
-    }
-
-    @Test
-    void AddTimeStamp(){
-        Model model = new Sql2oModel(sql2o);
-        model.SetDate(id.toString(), "Wed Nov 20 10:37:43 GMT 2019");
-        assertEquals(true, model.SetDate(id.toString(), "Wed Nov 20 10:37:43 GMT 2019"));
     }
 }

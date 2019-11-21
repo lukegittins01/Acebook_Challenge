@@ -16,13 +16,14 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public UUID createPost(String title, String content) {
+    public UUID createPost(String title, String content, String datecreated) {
         try (Connection conn = sql2o.beginTransaction()) {
             UUID postUuid = UUID.randomUUID();
-            conn.createQuery("insert into posts(post_id, title, content) VALUES (:post_id, :title, :content)")
+            conn.createQuery("insert into posts(post_id, title, content, datecreated) VALUES (:post_id, :title, :content, :datecreated)")
                     .addParameter("post_id", postUuid)
                     .addParameter("title", title)
                     .addParameter("content", content)
+                    .addParameter("datecreated", datecreated)
                     .executeUpdate();
             conn.commit();
             return postUuid;
@@ -81,29 +82,30 @@ public class Sql2oModel implements Model {
 
         }
     }
-
-    @Override
-    public boolean SetDate(String id, String datecreated) {
-        boolean something = false;
-        try (Connection conn = sql2o.beginTransaction()) {
-            conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
-                    .addParameter("id", id)
-                    .addParameter("datecreated", datecreated)
-                    .executeUpdate();
-            conn.commit();
-            something = true;
-        }
-        return something;
-    }
-
-
-    @Override
-    public List getAllDates() {
-        try (Connection conn = sql2o.open()) {
-            List list_of_dates = (conn.createQuery("select datecreated from dates ORDER BY id")
-                    .executeAndFetch(Dates.class));
-            System.out.println(list_of_dates);
-            return list_of_dates;
-        }
-    }
 }
+
+//    @Override
+//    public boolean SetDate(String id, String datecreated) {
+//        boolean something = false;
+//        try (Connection conn = sql2o.beginTransaction()) {
+//            conn.createQuery("insert into dates(id, datecreated) VALUES (:id, :datecreated)")
+//                    .addParameter("id", id)
+//                    .addParameter("datecreated", datecreated)
+//                    .executeUpdate();
+//            conn.commit();
+//            something = true;
+//        }
+//        return something;
+//    }
+
+
+//    @Override
+//    public List getAllDates() {
+//        try (Connection conn = sql2o.open()) {
+//            List list_of_dates = (conn.createQuery("select datecreated from dates ORDER BY id")
+//                    .executeAndFetch(Dates.class));
+//            System.out.println(list_of_dates);
+//            return list_of_dates;
+//        }
+//    }
+//}

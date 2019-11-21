@@ -41,7 +41,7 @@ public class Main {
 
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world");
+                UUID id = model.createPost("hello", "world, ");
                 Date currentDate = new Date();
                 model.SetDate(id.toString(), currentDate.toString());
             }
