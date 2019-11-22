@@ -104,4 +104,29 @@ What went well:
 
 What we could improve on:
 - Merge conflicts 
+--------------------------
+Day 5 - Vikash
+
+Back End
+- Will
+- Albion
+
+Front End
+- Luke
+- Vikash
+- Adam
+
+Aims
+- CSS on every page.
+- Add so that a post can be liked and shown on the post.
+- Show which user made which post
+
+Completed:
+
+
+What went well:
+
+
+What we could improve on:
+
 
