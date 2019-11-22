@@ -70,3 +70,38 @@ Day 3 - Albion
 front end: atempted to show the posts and dates created (although had to do it a bad way with lots of technical debt)
 back end: atempted to use heruko
 (was a dificult day)
+
+Day 4 - Adam 
+
+Back End
+- Will
+- Albion
+
+Front End
+- Luke
+- Vikash
+- Adam
+
+Aims
+- Change the design of the dates database
+- Add more to the css file 
+- Make the css file external 
+- Ordering the posts by date
+- Successfully swap which people are doing front end and back end
+- Show which user made each post in the back end
+
+Completed:
+- Change the design of the dates database
+- Add more to the css file 
+- Make the css file external 
+- Ordering the posts by date
+- Successfully swap which people are doing front end and back end
+- Show which user made each post in the back end
+
+What went well:
+- We swapped roles with minimal hiccups and managed to add more on both ends 
+- Better progress than day 3
+
+What we could improve on:
+- Merge conflicts 
+
