@@ -79,9 +79,9 @@ font-family:verdana;
  text-align: left;
 }
 c{
-color: #99d6ff;
+color: #b366ff;
 font-family:verdana;
- text-align: center;
+
  font-size: 14px;
 }
 d{
@@ -89,4 +89,24 @@ color: #99d6ff;
 font-family:verdana;
  text-align: left;
  font-size: 10px;
+}
+
+user{
+color: #ffffff;
+font-family:verdana;
+ font-size: 20px;
+ font-weight: bold;
+}
+
+em{
+color: #99d6ff;
+font-family:verdana;
+ text-align: left;
+ font-size: 14px;
+}
+
+input{
+background-color: #001021;
+color: #99d6ff;
+border: none;
 }
