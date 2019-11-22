@@ -45,6 +45,11 @@
                     <user>$i.usercreated</user><br>
                     <t>$i.title </t> <br>
                     <c>$i.content </c><br>
+                    <likes>Likes: $i.numberoflikes </likes><br>
+                     <form action="/like" method="POST">
+                     <input type="hidden" name="id" value=$i.post_id>
+                      <input type="submit" name="like" value="Like">
+                      </form>
                     <d>$i.datecreated</d><br>
                     <br>
                 </p2>

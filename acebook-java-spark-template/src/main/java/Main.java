@@ -53,8 +53,8 @@ public class Main {
             }
 
             if(model.getAllPosts().size() == 0) {
-                UUID id = model.createPost("hello", "world", "New Date", "New User");
-                Date currentDate = new Date();
+                UUID id = model.createPost("This is a Title", "This is where the content goes", "Monday 5th November", "LukeG");
+
             }
 
             HashMap posts = new HashMap();
@@ -62,6 +62,13 @@ public class Main {
             posts.put("username", username);
             return new ModelAndView(posts, "templates/posts.vtl");
         }, new VelocityTemplateEngine());
+
+        post("/like", (req, res) -> {
+            String id = req.queryParams("id");
+            model.likePost(id);
+            res.redirect("/posts");
+            return null;
+        });
 
         get("/create", (req, res) -> {
             HashMap create = new HashMap();

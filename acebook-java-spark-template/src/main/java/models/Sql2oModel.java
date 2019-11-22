@@ -87,7 +87,7 @@ public class Sql2oModel implements Model {
     }
 
     @Override
-    public void likePost(UUID post_id) {
+    public void likePost(String post_id) {
         try (Connection conn = sql2o.beginTransaction()) {
 //            Select the post which you want to add the like to, using the post_id
             conn.createQuery("update posts set numberoflikes= numberoflikes+1 WHERE post_id=:post_id")

@@ -131,7 +131,7 @@ class Sql2oModelTest {
         List<Post> acebookItems =  new ArrayList<Post>();
         acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user", 1));
         System.out.println(acebookItems);
-        model.likePost(id);
+        model.likePost(id.toString());
         assertEquals(acebookItems, model.getAllPosts());
     }
 }

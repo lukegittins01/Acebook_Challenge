@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" href="/stylesheet.css" >
         <title>Signed Up</title>
     </head>
-    <body>
+    <body style="background-color: #4d4d4d;">
         <h1>Thank you for signing up!</h1>
+
+        <ul>
+                                     <li>
+                                      <form action="/posts" method="POST">
+                                      <input class="navigation" type="submit" name="timeline" value="Timeline">
+                                       </form>
+                                       </li>
+                                     <li>
+                                     <form action="/createbutton" method="POST">
+                                         <input class="navigation" type="submit" name="createButton" value="Create a Post">
+                                     </form>
+                                 </li>
+
+                                         <li>
+                                         <form action="/signin" method="POST">
+                                                     <input class="navigation" type="submit" name="signin" value="Sign in">
+                                                 </form>
+                                                 </li>
+                                                 <li>
+                                                         <form action="/signup" method="POST">
+                                                                     <input class="navigation" type="submit" name="signup" value="Sign Up">
+                                                                 </form>
+                                                                 </li>
+                                                                 <li>
+                                                                     <form action="/signout" method="POST">
+                                                                             <input class="navigation" type="submit" name="signout" value="Sign out">
+                                                                         </form>
+                                                                         </li>
+                                                 </ul>
         <form action="/signed" method="POST">
             <input type="submit" value="Redirect to Sign In">
         </form>
