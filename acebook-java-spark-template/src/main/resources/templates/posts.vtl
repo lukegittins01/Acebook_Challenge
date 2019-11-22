@@ -5,37 +5,44 @@
     <title>Acebook!</title>
   </head>
 
-  <body style="background-color: #234356;">
+  <body style="background-color: #4d4d4d;">
     <h1>Welcome to Acebook, $username</h1>
     <ul>
-    <li>
-    <form action="/createbutton" method="POST">
-        <input class="navigation" type="submit" name="createButton" value="Create a Post">
-    </form>
-</li>
-<li>
-    <form action="/signout" method="POST">
-            <input class="navigation" type="submit" name="signout" value="Sign out">
-        </form>
-        </li>
-        <li>
-        <form action="/signin" method="POST">
-                    <input class="navigation" type="submit" name="signin" value="Sign in">
-                </form>
-                </li>
-                <li>
-                        <form action="/signup" method="POST">
-                                    <input class="navigation" type="submit" name="signup" value="Sign Up">
-                                </form>
-                                </li>
-                </ul>
+                         <li>
+                          <form action="/posts" method="POST">
+                          <input class="navigation" type="submit" name="timeline" value="Timeline">
+                           </form>
+                           </li>
+                         <li>
+                         <form action="/createbutton" method="POST">
+                             <input class="navigation" type="submit" name="createButton" value="Create a Post">
+                         </form>
+                     </li>
+
+                             <li>
+                             <form action="/signin" method="POST">
+                                         <input class="navigation" type="submit" name="signin" value="Sign in">
+                                     </form>
+                                     </li>
+                                     <li>
+                                             <form action="/signup" method="POST">
+                                                         <input class="navigation" type="submit" name="signup" value="Sign Up">
+                                                     </form>
+                                                     </li>
+                                                     <li>
+                                                         <form action="/signout" method="POST">
+                                                                 <input class="navigation" type="submit" name="signout" value="Sign out">
+                                                             </form>
+                                                             </li>
+                                     </ul>
     <section id="tablePosts">
 
          <br>
-            <p1>Timeline</p1>
-            <br>
+            <p1>Timeline  <br> </p1>
+
             #foreach ( $i in $posts )
                 <p2>
+                    <user>$i.usercreated</user><br>
                     <t>$i.title </t> <br>
                     <c>$i.content </c><br>
                     <d>$i.datecreated</d><br>

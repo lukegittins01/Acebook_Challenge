@@ -69,15 +69,27 @@ public class Main {
         }, new VelocityTemplateEngine());
 
         post("/create", (req, res) -> {
-            String title = req.queryParams("title");
-            String content = req.queryParams("content");
-            String usercreated = "user";
-            Date currentDate = new Date();
-            String date = currentDate.toString();
-            UUID id = model.createPost(title, content, date, usercreated);
-            res.redirect("/posts");
-            return ":)";
+
+            if(req.session().attribute("user") == "Hello there!"){
+                res.redirect("/alert");
+            }else {
+                String title = req.queryParams("title");
+                String content = req.queryParams("content");
+                String usercreated = req.session().attribute("user");
+                Date currentDate = new Date();
+                String date = currentDate.toString();
+                UUID id = model.createPost(title, content, date, usercreated);
+                res.redirect("/posts");
+            }
+                return ":)";
+
         });
+
+        get("/alert", (req, res) -> {
+            HashMap create = new HashMap();
+            return new ModelAndView(create, "templates/alert.vtl");
+        }, new VelocityTemplateEngine());
+
 
         post("/createbutton", (req, res) ->{
            res.redirect("/create");
