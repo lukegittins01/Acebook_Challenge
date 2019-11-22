@@ -41,12 +41,13 @@ class Sql2oModelTest {
     @BeforeEach
     void setUp() {
         Connection conn = sql2o.beginTransaction();
-        conn.createQuery("insert into posts(post_id, title, content, datecreated, usercreated) VALUES (:post_id, :title, :content, :datecreated, :usercreated)")
+        conn.createQuery("insert into posts(post_id, title, content, datecreated, usercreated, numberoflikes) VALUES (:post_id, :title, :content, :datecreated, :usercreated, :numberoflikes)")
                 .addParameter("post_id", id)
                 .addParameter("title", "example title")
                 .addParameter("content", "example content")
                 .addParameter("datecreated", "Wed Nov 20 10:37:43 GMT 2019")
                 .addParameter("usercreated", "example user")
+                .addParameter("numberoflikes", 0)
                 .executeUpdate();
 
         conn.createQuery("insert into users(username, full_name, password) VALUES (:username, :full_name, :password)")
@@ -100,7 +101,7 @@ class Sql2oModelTest {
     void getAllPosts() {
         Model model = new Sql2oModel(sql2o);
         List<Post> acebookItems =  new ArrayList<Post>();
-        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user"));
+        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user", 0));
         assertEquals(model.getAllPosts(), acebookItems);
     }
     @Test
@@ -122,5 +123,15 @@ class Sql2oModelTest {
         Users userinstance = new Users("username", "fullname", "password");
         userList.add(userinstance);
         assertEquals(userList.get(0), userinstance);
+    }
+
+    @Test
+    void likePost() {
+        Model model = new Sql2oModel(sql2o);
+        List<Post> acebookItems =  new ArrayList<Post>();
+        acebookItems.add(new Post(id, "example title", "example content", "Wed Nov 20 10:37:43 GMT 2019", "example user", 1));
+        System.out.println(acebookItems);
+        model.likePost(id);
+        assertEquals(acebookItems, model.getAllPosts());
     }
 }
