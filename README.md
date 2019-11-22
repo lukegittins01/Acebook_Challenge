@@ -122,11 +122,18 @@ Aims
 - Show which user made which post
 
 Completed:
-
+- CSS on every page.
+- Add so that a post can be liked and shown on the post.
+- Show which user made which post
 
 What went well:
-
+- likes was a good thing.
+- username being displayed
+- teamwork
 
 What we could improve on:
+- drawing skills
+- maturity
+----------------------------------
 
 
