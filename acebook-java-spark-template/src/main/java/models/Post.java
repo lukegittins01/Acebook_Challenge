@@ -12,13 +12,15 @@ public class Post {
     private String content;
     private String datecreated;
     private String usercreated;
+    private Integer numberoflikes;
 
-    public Post(UUID post_id, String title, String content, String datecreated, String usercreated) {
+    public Post(UUID post_id, String title, String content, String datecreated, String usercreated, Integer numberoflikes) {
         this.post_id = post_id;
         this.title = title;
         this.content = content;
         this.datecreated = datecreated;
         this.usercreated = usercreated;
+        this.numberoflikes = numberoflikes;
     }
 
 }

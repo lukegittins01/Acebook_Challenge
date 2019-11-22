@@ -3,5 +3,6 @@ create table posts(
  title VARCHAR,
  content VARCHAR,
  datecreated VARCHAR,
- usercreated VARCHAR
+ usercreated VARCHAR,
+ numberoflikes INTEGER
 )
