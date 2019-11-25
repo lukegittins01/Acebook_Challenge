@@ -33,13 +33,10 @@ public class Main {
 
         Model model = new Sql2oModel(sql2o);
 
-        //post("/stylesheet.css", (req,res) -> {
-
-            //return null;
-        //});
-
-        get("/", (req, res) -> "Hello World");
-
+        get("/", (req, res) ->{
+            res.redirect("/posts");
+            return null;
+        });
 
         get("/posts", (req, res) -> {
 

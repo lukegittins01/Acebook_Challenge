@@ -79,10 +79,9 @@ font-family:verdana;
  text-align: left;
 }
 c{
-color: #b366ff;
+color: #99d6ff;
 font-family:verdana;
-
- font-size: 14px;
+font-size: 15px;
 }
 d{
 color: #99d6ff;
@@ -109,4 +108,8 @@ input{
 background-color: #001021;
 color: #99d6ff;
 border: none;
+}
+likes{
+font-family:verdana;
+color: #99d6ff
 }

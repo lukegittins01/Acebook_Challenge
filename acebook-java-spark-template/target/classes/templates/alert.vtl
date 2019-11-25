@@ -4,29 +4,24 @@
     <link rel="stylesheet" href="/stylesheet.css" >
     <title>Acebook!</title>
   </head>
-
   <body style="background-color: #4d4d4d;">
     <h1>You cannot create a post if you're not signed in!</h1>
     <ul>
-                         <li>
-                          <form action="/posts" method="POST">
-                          <input class="navigation" type="submit" name="timeline" value="Timeline">
-                           </form>
-                           </li>
-
-                             <li>
-                             <form action="/signin" method="POST">
-                                         <input class="navigation" type="submit" name="signin" value="Sign in">
-                                     </form>
-                                     </li>
-                                     <li>
-                                             <form action="/signup" method="POST">
-                                                         <input class="navigation" type="submit" name="signup" value="Sign Up">
-                                                     </form>
-                                                     </li>
-                                                     <li>
-
-                                     </ul>
-
+    <li>
+      <form action="/posts" method="POST">
+        <input class="navigation" type="submit" name="timeline" value="Timeline">
+      </form>
+    </li>
+    <li>
+      <form action="/signin" method="POST">
+        <input class="navigation" type="submit" name="signin" value="Sign in">
+      </form>
+    </li>
+    <li>
+      <form action="/signup" method="POST">
+        <input class="navigation" type="submit" name="signup" value="Sign Up">
+      </form>
+    </li>
+   </ul>
   </body>
 </html>

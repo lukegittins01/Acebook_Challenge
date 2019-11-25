@@ -2,8 +2,6 @@ package models;
 
 import lombok.Data;
 
-import java.util.UUID;
-
     @Data
     public class Users{
         private String username;

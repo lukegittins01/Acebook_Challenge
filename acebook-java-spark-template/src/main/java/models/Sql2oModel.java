@@ -92,10 +92,8 @@ public class Sql2oModel implements Model {
 //            Select the post which you want to add the like to, using the post_id
             conn.createQuery("update posts set numberoflikes= numberoflikes+1 WHERE post_id=:post_id")
                     .addParameter("post_id", post_id.toString())
-//                    .addParameter("numberoflikes")
                     .executeUpdate();
             conn.commit();
-//            String increasedNumberOfLikes = "[Post(post_id=49921d6e-e210-4f68-ad7a-afac266278cb, title=example title, content=example content, datecreated=Wed Nov 20 10:37:43 GMT 2019, usercreated=example user, numberoflikes=" + 1 + ")]";
         }
     }
 }
